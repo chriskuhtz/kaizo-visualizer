@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 import { runs } from '../../data/runs';
+import { getFurthestRun } from '../../functions/getFurthestRun';
 import { Run } from '../../interfaces/Run';
+import { BstToLevelChart } from '../BstToLevelChart/BstToLevelChart';
 
-const getFurthestRun = (): Run => {
-	return [...runs].sort((a, b) => b.level - a.level)[0];
-};
 export const Statistics = ({
 	setSelected,
 }: {
@@ -14,11 +13,14 @@ export const Statistics = ({
 		return getFurthestRun();
 	}, []);
 	const medianLevel = useMemo(() => {
-		return [...runs].sort((a, b) => b.level - a.level)[runs.length / 2].level;
+		return [...runs].sort((a, b) => b.level - a.level)[
+			Math.floor(runs.length / 2)
+		].level;
 	}, []);
 	const avgLevel = useMemo(() => {
 		return Math.floor([...runs].reduce((a, b) => a + b.level, 0) / runs.length);
 	}, []);
+
 	return (
 		<div>
 			<h1>Stats</h1>
@@ -32,6 +34,7 @@ export const Statistics = ({
 			</h3>
 			<h3>Median Level: {medianLevel}</h3>
 			<h3>Avg. Level: {avgLevel}</h3>
+			<BstToLevelChart />
 		</div>
 	);
 };
