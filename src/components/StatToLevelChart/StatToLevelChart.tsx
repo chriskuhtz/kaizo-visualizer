@@ -64,6 +64,7 @@ export const StatToLevelChart = () => {
 			<h3>Level Progress by BST:</h3>
 			<div style={{ display: 'flex', gap: '1rem' }}>
 				<button
+					style={{ borderColor: selectedStat === 'Total' ? 'red' : undefined }}
 					onClick={() => {
 						setData(undefined);
 						setSelectedStat('Total');
@@ -73,6 +74,7 @@ export const StatToLevelChart = () => {
 				</button>
 				{stats.map((stat: Stat) => (
 					<button
+						style={{ borderColor: selectedStat === stat ? 'red' : undefined }}
 						onClick={() => {
 							setData(undefined);
 							setSelectedStat(stat);
