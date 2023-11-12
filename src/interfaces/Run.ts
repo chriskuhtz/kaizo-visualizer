@@ -1,3 +1,4 @@
+import { Nature } from '../shared/components/StatChart/StatChart';
 import { StatObject } from '../shared/interfaces/StatObject';
 
 export interface Run {
@@ -6,7 +7,7 @@ export interface Run {
 	filename: string;
 	nickname: string;
 	level: number;
-	nature: string;
+	nature: Nature;
 	ivs: StatObject;
 	evs: StatObject;
 	moves: { pp: number; id: number; name: string }[];

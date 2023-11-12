@@ -1,8 +1,3 @@
-export interface StatObject {
-	spatk: number;
-	defence: number;
-	hp: number;
-	spdef: number;
-	attack: number;
-	speed: number;
-}
+import { Stat } from '../components/StatChart/StatChart';
+
+export type StatObject = Record<Stat, number>;

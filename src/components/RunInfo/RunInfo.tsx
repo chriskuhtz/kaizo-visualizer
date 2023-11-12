@@ -36,7 +36,7 @@ export const RunInfo = ({ run }: { run: Run }): JSX.Element => {
 			<div>
 				<h3>Moves:</h3>
 				{run.moves.map((m) => (
-					<h4>{m.name}</h4>
+					<h4 key={m.name}>{m.name}</h4>
 				))}
 			</div>
 			{baseStats && (
@@ -45,6 +45,7 @@ export const RunInfo = ({ run }: { run: Run }): JSX.Element => {
 					evs={run.evs}
 					nature={run.nature}
 					baseStats={baseStats}
+					level={run.level}
 				/>
 			)}
 		</div>
