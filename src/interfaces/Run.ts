@@ -1,4 +1,4 @@
-import { Nature } from '../shared/components/StatChart/StatChart';
+import { Nature } from '../shared/interfaces/Natures';
 import { StatObject } from '../shared/interfaces/StatObject';
 
 export interface Run {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getBaseStats } from '../../functions/getBaseStats';
 import { Run } from '../../interfaces/Run';
-import { StatChart } from '../../shared/components/StatChart/StatChart';
+import { StatSection } from '../../shared/components/StatSection/StatSection';
 import { StatObject } from '../../shared/interfaces/StatObject';
 
 export const RunInfo = ({ run }: { run: Run }): JSX.Element => {
@@ -40,7 +40,7 @@ export const RunInfo = ({ run }: { run: Run }): JSX.Element => {
 				))}
 			</div>
 			{baseStats && (
-				<StatChart
+				<StatSection
 					ivs={run.ivs}
 					evs={run.evs}
 					nature={run.nature}

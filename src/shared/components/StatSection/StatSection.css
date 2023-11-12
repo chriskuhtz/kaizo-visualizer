@@ -1,0 +1,9 @@
+.statSection {
+	display: flex;
+	gap: 1rem;
+	justify-content: space-evenly;
+
+	@media (max-aspect-ratio: 10/9) {
+		flex-direction: column;
+	}
+}

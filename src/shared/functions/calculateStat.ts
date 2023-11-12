@@ -16,5 +16,5 @@ export const calculateStat = (
 	const numerator = 2 * (base + iv + ev / 4) * level;
 	const natureFactor = determineNatureFactor(nature, stat);
 
-	return (numerator / denominator + bonus) * natureFactor;
+	return Math.floor((numerator / denominator + bonus) * natureFactor);
 };

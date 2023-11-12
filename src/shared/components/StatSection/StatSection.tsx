@@ -8,8 +8,9 @@ import {
 } from 'recharts';
 import { calculateStat } from '../../functions/calculateStat';
 import { getBaseStatTotal } from '../../functions/getBaseStatTotal';
-import { Stat, StatObject } from '../../interfaces/StatObject';
 import { Nature } from '../../interfaces/Natures';
+import { Stat, StatObject } from '../../interfaces/StatObject';
+import './StatSection.css';
 
 export type StatChartDataPoint = {
 	statName: string;
@@ -17,7 +18,7 @@ export type StatChartDataPoint = {
 };
 export type StatChartData = StatChartDataPoint[];
 
-export const StatChart = ({
+export const StatSection = ({
 	baseStats,
 	ivs,
 	evs,
@@ -43,9 +44,7 @@ export const StatChart = ({
 
 				value: calculateStat(
 					value,
-					//@ts-expect-error yes, you can reference object keys by string
 					ivs[key],
-					//@ts-expect-error yes, you can reference object keys by string
 					evs[key],
 					nature,
 					level,
@@ -56,16 +55,23 @@ export const StatChart = ({
 	}, [baseStats, evs, ivs, level, nature]);
 
 	return (
-		<div>
-			<h2>Stats:</h2>
-			{bst && <h3>Total: {bst}</h3>}
-			<h3>Nature: {nature}</h3>
+		<div className="statSection">
+			<div>
+				<h2>Stats:</h2>
+				{bst && <h3>Total: {bst}</h3>}
+				<h3>Nature: {nature}</h3>
+				{statChartData.map((s) => (
+					<p>
+						<strong>{s.statName} :</strong> {s.value}
+					</p>
+				))}
+			</div>
 			<RadarChart
-				cx={300}
-				cy={250}
-				outerRadius={150}
-				width={500}
-				height={500}
+				cx={200}
+				cy={200}
+				outerRadius={130}
+				width={400}
+				height={400}
 				data={statChartData}
 			>
 				<PolarGrid />
