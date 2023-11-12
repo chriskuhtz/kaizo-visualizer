@@ -17,14 +17,18 @@ export interface DataPoint {
 	x: number;
 	y: number;
 	name: string;
+	fileName: string;
 }
 
 //@ts-expect-error untyped props
-const CustomTooltip = ({ active, payload }) => {
+const CustomTooltip = ({ active, payload, onClick }) => {
 	if (active && payload && payload.length) {
 		return (
 			<div className="custom-tooltip" style={{ pointerEvents: 'all' }}>
-				<p onClick={() => console.log('yaya')} className="desc">
+				<p
+					onClick={() => onClick(payload[0].payload.fileName)}
+					className="desc"
+				>
 					{payload[0].payload.name}
 				</p>
 			</div>
@@ -34,7 +38,11 @@ const CustomTooltip = ({ active, payload }) => {
 	return null;
 };
 
-export const StatToLevelChart = () => {
+export const StatToLevelChart = ({
+	onTooltipClick,
+}: {
+	onTooltipClick: (x: string) => void;
+}) => {
 	const [selectedStat, setSelectedStat] = useState<Stat | 'Total'>('Total');
 	const [data, setData] = useState<DataPoint[] | undefined>();
 
@@ -43,7 +51,12 @@ export const StatToLevelChart = () => {
 			const getData = async () => {
 				const res = await Promise.all(
 					runs.map(async (r) => {
-						const datapoint: DataPoint = { y: 0, x: r.level, name: r.name };
+						const datapoint: DataPoint = {
+							y: 0,
+							x: r.level,
+							name: r.name,
+							fileName: r.filename,
+						};
 						const baseStats = await getBaseStats(r);
 						if (baseStats) {
 							if (selectedStat === 'Total') {
@@ -74,6 +87,7 @@ export const StatToLevelChart = () => {
 				</button>
 				{stats.map((stat: Stat) => (
 					<button
+						key={stat}
 						style={{ borderColor: selectedStat === stat ? 'red' : undefined }}
 						onClick={() => {
 							setData(undefined);
@@ -101,7 +115,7 @@ export const StatToLevelChart = () => {
 					<Tooltip
 						cursor={{ strokeDasharray: '3 3' }}
 						//@ts-expect-error inferred props
-						content={<CustomTooltip />}
+						content={<CustomTooltip onClick={onTooltipClick} />}
 					/>
 					<Scatter data={data} fill="#8884d8">
 						{data.map((entry, index) => (

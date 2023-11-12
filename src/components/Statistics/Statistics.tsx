@@ -7,7 +7,7 @@ import { StatToLevelChart } from '../StatToLevelChart/StatToLevelChart';
 export const Statistics = ({
 	setSelected,
 }: {
-	setSelected: (x: Run) => void;
+	setSelected: (x: Run | undefined) => void;
 }): JSX.Element => {
 	const furthestRun = useMemo(() => {
 		return getFurthestRun();
@@ -34,7 +34,11 @@ export const Statistics = ({
 			</h3>
 			<h3>Median Level: {medianLevel}</h3>
 			<h3>Avg. Level: {avgLevel}</h3>
-			<StatToLevelChart />
+			<StatToLevelChart
+				onTooltipClick={(name) =>
+					setSelected(runs.find((r) => r.filename === name))
+				}
+			/>
 		</div>
 	);
 };
