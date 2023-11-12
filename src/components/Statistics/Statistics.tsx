@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { runs } from '../../data/runs';
 import { getFurthestRun } from '../../functions/getFurthestRun';
 import { Run } from '../../interfaces/Run';
-import { BstToLevelChart } from '../BstToLevelChart/BstToLevelChart';
+import { StatToLevelChart } from '../StatToLevelChart/StatToLevelChart';
 
 export const Statistics = ({
 	setSelected,
@@ -34,7 +34,7 @@ export const Statistics = ({
 			</h3>
 			<h3>Median Level: {medianLevel}</h3>
 			<h3>Avg. Level: {avgLevel}</h3>
-			<BstToLevelChart />
+			<StatToLevelChart />
 		</div>
 	);
 };

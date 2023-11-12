@@ -11,6 +11,7 @@ import {
 import { runs } from '../../data/runs';
 import { getBaseStats } from '../../functions/getBaseStats';
 import { getBaseStatTotal } from '../../shared/functions/getBaseStatTotal';
+import { Stat, stats } from '../../shared/interfaces/StatObject';
 
 export interface DataPoint {
 	x: number;
@@ -33,7 +34,8 @@ const CustomTooltip = ({ active, payload }) => {
 	return null;
 };
 
-export const BstToLevelChart = () => {
+export const StatToLevelChart = () => {
+	const [selectedStat, setSelectedStat] = useState<Stat | 'Total'>('Total');
 	const [data, setData] = useState<DataPoint[] | undefined>();
 
 	useEffect(() => {
@@ -44,7 +46,9 @@ export const BstToLevelChart = () => {
 						const datapoint: DataPoint = { y: 0, x: r.level, name: r.name };
 						const baseStats = await getBaseStats(r);
 						if (baseStats) {
-							datapoint.y = getBaseStatTotal(baseStats);
+							if (selectedStat === 'Total') {
+								datapoint.y = getBaseStatTotal(baseStats);
+							} else datapoint.y = baseStats[selectedStat];
 						}
 						return datapoint;
 					})
@@ -53,12 +57,31 @@ export const BstToLevelChart = () => {
 			};
 			getData();
 		}
-	}, [data]);
+	}, [data, selectedStat]);
 
 	return (
 		<>
-			{' '}
 			<h3>Level Progress by BST:</h3>
+			<div style={{ display: 'flex', gap: '1rem' }}>
+				<button
+					onClick={() => {
+						setData(undefined);
+						setSelectedStat('Total');
+					}}
+				>
+					Total
+				</button>
+				{stats.map((stat: Stat) => (
+					<button
+						onClick={() => {
+							setData(undefined);
+							setSelectedStat(stat);
+						}}
+					>
+						{stat}
+					</button>
+				))}
+			</div>
 			{data && (
 				<ScatterChart
 					width={400}
