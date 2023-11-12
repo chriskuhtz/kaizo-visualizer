@@ -1,17 +1,34 @@
 import { useMemo } from 'react';
+import {
+	PolarAngleAxis,
+	PolarGrid,
+	PolarRadiusAxis,
+	Radar,
+	RadarChart,
+} from 'recharts';
+import { calculateStat } from '../../functions/calculateStat';
 import { getBaseStatTotal } from '../../functions/getBaseStatTotal';
-import { StatObject } from '../../interfaces/StatObject';
+import { Stat, StatObject } from '../../interfaces/StatObject';
+import { Nature } from '../../interfaces/Natures';
+
+export type StatChartDataPoint = {
+	statName: string;
+	value: number;
+};
+export type StatChartData = StatChartDataPoint[];
 
 export const StatChart = ({
 	baseStats,
 	ivs,
 	evs,
 	nature,
+	level,
 }: {
 	baseStats: StatObject;
 	ivs: StatObject;
 	evs: StatObject;
-	nature: string;
+	nature: Nature;
+	level: number;
 }): JSX.Element => {
 	const bst = useMemo((): number | undefined => {
 		if (baseStats) {
@@ -19,55 +36,48 @@ export const StatChart = ({
 		}
 	}, [baseStats]);
 
+	const statChartData: StatChartData = useMemo(() => {
+		return Object.entries(baseStats).map(([key, value]) => {
+			return {
+				statName: key,
+
+				value: calculateStat(
+					value,
+					//@ts-expect-error yes, you can reference object keys by string
+					ivs[key],
+					//@ts-expect-error yes, you can reference object keys by string
+					evs[key],
+					nature,
+					level,
+					key as Stat
+				),
+			};
+		});
+	}, [baseStats, evs, ivs, level, nature]);
+
 	return (
 		<div>
+			<h2>Stats:</h2>
 			{bst && <h3>Total: {bst}</h3>}
 			<h3>Nature: {nature}</h3>
-
-			<table>
-				<thead>
-					<tr>
-						<th></th>
-						<th>HP:</th>
-						<th>ATK:</th>
-						<th>DEF:</th>
-						<th>SPATK:</th>
-						<th>SPDEF:</th>
-						<th>SPEED:</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>IVs:</th>
-						<th>{ivs.hp}</th>
-						<th>{ivs.attack}</th>
-						<th>{ivs.defence}</th>
-						<th>{ivs.spatk}</th>
-						<th>{ivs.spdef}</th>
-						<th>{ivs.speed}</th>
-					</tr>
-					<tr>
-						<th>EVs:</th>
-						<th>{evs.hp}</th>
-						<th>{evs.attack}</th>
-						<th>{evs.defence}</th>
-						<th>{evs.spatk}</th>
-						<th>{evs.spdef}</th>
-						<th>{evs.speed}</th>
-					</tr>
-					{baseStats && (
-						<tr>
-							<th>Base:</th>
-							<th>{baseStats.hp}</th>
-							<th>{baseStats.attack}</th>
-							<th>{baseStats.defence}</th>
-							<th>{baseStats.spatk}</th>
-							<th>{baseStats.spdef}</th>
-							<th>{baseStats.speed}</th>
-						</tr>
-					)}
-				</tbody>
-			</table>
+			<RadarChart
+				cx={300}
+				cy={250}
+				outerRadius={150}
+				width={500}
+				height={500}
+				data={statChartData}
+			>
+				<PolarGrid />
+				<PolarAngleAxis dataKey="statName" />
+				<PolarRadiusAxis />
+				<Radar
+					dataKey="value"
+					stroke="#8884d8"
+					fill="#8884d8"
+					fillOpacity={0.6}
+				/>
+			</RadarChart>
 		</div>
 	);
 };
