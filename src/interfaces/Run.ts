@@ -1,3 +1,4 @@
+import { Move } from '../shared/interfaces/Move';
 import { Nature } from '../shared/interfaces/Natures';
 import { StatObject } from '../shared/interfaces/StatObject';
 
@@ -10,6 +11,6 @@ export interface Run {
 	nature: Nature;
 	ivs: StatObject;
 	evs: StatObject;
-	moves: { pp: number; id: number; name: string }[];
+	moves: Move[];
 	owner: string;
 }

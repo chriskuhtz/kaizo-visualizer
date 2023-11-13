@@ -1,7 +1,7 @@
 .statSection {
 	display: flex;
 	gap: 1rem;
-	justify-content: space-evenly;
+	justify-content: space-between;
 
 	@media (max-aspect-ratio: 10/9) {
 		flex-direction: column;

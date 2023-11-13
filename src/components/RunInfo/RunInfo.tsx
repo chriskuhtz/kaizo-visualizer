@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getBaseStats } from '../../functions/getBaseStats';
 import { Run } from '../../interfaces/Run';
+import { MoveSection } from '../../shared/components/MoveSection/MoveSection';
 import { NameAndSpriteSection } from '../../shared/components/NameAndSpriteSection/NameAndSpriteSection';
 import { StatSection } from '../../shared/components/StatSection/StatSection';
 import { StatObject } from '../../shared/interfaces/StatObject';
@@ -31,12 +32,7 @@ export const RunInfo = ({ run }: { run: Run }): JSX.Element => {
 				nickname={run.nickname}
 				owner={run.owner}
 			/>
-			<div>
-				<h3>Moves:</h3>
-				{run.moves.map((m) => (
-					<h4 key={m.name}>{m.name}</h4>
-				))}
-			</div>
+			<MoveSection moves={run.moves} />
 			{baseStats && (
 				<StatSection
 					ivs={run.ivs}
