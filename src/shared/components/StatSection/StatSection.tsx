@@ -47,6 +47,24 @@ export const StatSection = ({
 					ivs[key],
 					evs[key],
 					nature,
+					50,
+					key as Stat,
+					true
+				),
+			};
+		});
+	}, [baseStats, evs, ivs, nature]);
+
+	const statListData: StatChartData = useMemo(() => {
+		return Object.entries(baseStats).map(([key, value]) => {
+			return {
+				statName: key,
+
+				value: calculateStat(
+					value,
+					ivs[key],
+					evs[key],
+					nature,
 					level,
 					key as Stat
 				),
@@ -56,16 +74,6 @@ export const StatSection = ({
 
 	return (
 		<div className="statSection">
-			<div>
-				<h2>Stats:</h2>
-				{bst && <h3>Total: {bst}</h3>}
-				<h3>Nature: {nature}</h3>
-				{statChartData.map((s) => (
-					<p>
-						<strong>{s.statName} :</strong> {s.value}
-					</p>
-				))}
-			</div>
 			<RadarChart
 				cx={200}
 				cy={200}
@@ -84,6 +92,16 @@ export const StatSection = ({
 					fillOpacity={0.6}
 				/>
 			</RadarChart>
+			<div>
+				<h2>Stats:</h2>
+				{bst && <h3>Total: {bst}</h3>}
+				<h3>Nature: {nature}</h3>
+				{statListData.map((s) => (
+					<p key={s.statName}>
+						<strong>{s.statName} :</strong> {s.value}
+					</p>
+				))}
+			</div>
 		</div>
 	);
 };

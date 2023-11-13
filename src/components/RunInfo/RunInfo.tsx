@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getBaseStats } from '../../functions/getBaseStats';
 import { Run } from '../../interfaces/Run';
+import { NameAndSpriteSection } from '../../shared/components/NameAndSpriteSection/NameAndSpriteSection';
 import { StatSection } from '../../shared/components/StatSection/StatSection';
 import { StatObject } from '../../shared/interfaces/StatObject';
 
@@ -23,16 +24,13 @@ export const RunInfo = ({ run }: { run: Run }): JSX.Element => {
 
 	return (
 		<div>
-			<h1>
-				{run.name}{' '}
-				{run.nickname !== run.name.toUpperCase() && (
-					<span>: {run.nickname}</span>
-				)}
-			</h1>
-			<h3>Trainer: {run.owner}</h3>
-			<h3>Level: {run.level}</h3>
-
-			<h3>Nature: {run.nature}</h3>
+			<NameAndSpriteSection
+				dexId={run.dexId.toFixed()}
+				name={run.name}
+				level={run.level}
+				nickname={run.nickname}
+				owner={run.owner}
+			/>
 			<div>
 				<h3>Moves:</h3>
 				{run.moves.map((m) => (

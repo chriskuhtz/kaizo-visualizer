@@ -12,11 +12,7 @@ export const Statistics = ({
 	const furthestRun = useMemo(() => {
 		return getFurthestRun();
 	}, []);
-	const medianLevel = useMemo(() => {
-		return [...runs].sort((a, b) => b.level - a.level)[
-			Math.floor(runs.length / 2)
-		].level;
-	}, []);
+
 	const avgLevel = useMemo(() => {
 		return Math.floor([...runs].reduce((a, b) => a + b.level, 0) / runs.length);
 	}, []);
@@ -25,6 +21,8 @@ export const Statistics = ({
 		<div>
 			<h1>Stats</h1>
 			<h3>Number of Runs: {runs.length}</h3>
+			<h3>Runs that left the lab: {runs.filter((r) => r.level > 5).length}</h3>
+			<h3>Runs that beat brock: {runs.filter((r) => r.level > 22).length}</h3>
 			<h3>
 				Furthest Level: {furthestRun.level}
 				<span onClick={() => setSelected(furthestRun)}>
@@ -32,7 +30,7 @@ export const Statistics = ({
 					({furthestRun.name})
 				</span>
 			</h3>
-			<h3>Median Level: {medianLevel}</h3>
+
 			<h3>Avg. Level: {avgLevel}</h3>
 			<StatToLevelChart
 				onTooltipClick={(name) =>
