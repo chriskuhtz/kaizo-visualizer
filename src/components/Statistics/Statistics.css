@@ -6,6 +6,11 @@
 		padding: 0 1rem;
 	}
 }
+.statsGrid {
+	display: grid;
+	gap: 0.5rem;
+	grid-template-columns: 1fr 1fr;
+}
 
 .iconGroup {
 	display: flex;

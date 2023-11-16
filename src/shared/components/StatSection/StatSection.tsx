@@ -94,13 +94,15 @@ export const StatSection = ({
 			</RadarChart>
 			<div>
 				<h2>Stats:</h2>
-				{bst && <h3>Total: {bst}</h3>}
-				<h3>Nature: {nature}</h3>
-				{statListData.map((s) => (
-					<p key={s.statName}>
-						<strong>{s.statName} :</strong> {s.value}
-					</p>
-				))}
+				<div className="statsGrid">
+					{bst && <h3>Total: {bst}</h3>}
+					<h3>Nature: {nature}</h3>
+					{statListData.map((s) => (
+						<p key={s.statName}>
+							<strong>{s.statName} :</strong> {s.value}
+						</p>
+					))}
+				</div>
 			</div>
 		</div>
 	);
