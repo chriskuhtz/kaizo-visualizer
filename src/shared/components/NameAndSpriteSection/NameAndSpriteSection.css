@@ -3,7 +3,9 @@
 	gap: 1rem;
 	justify-content: space-between;
 
-	@media (max-aspect-ratio: 10/9) {
+	padding: 0 2rem;
+	@media (max-aspect-ratio: 1/1) {
+		padding: 0 1rem;
 		flex-direction: column-reverse;
 	}
 }
