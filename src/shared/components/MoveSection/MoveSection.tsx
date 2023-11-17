@@ -8,7 +8,7 @@ export const MoveSection = ({ moves }: { moves: Move[] }): JSX.Element => {
 			<h2>Moves:</h2>
 			<div className="movesGrid">
 				{moves.map((m) => (
-					<PokeApiMovePill name={m.name} />
+					<PokeApiMovePill key={m.id} name={m.name} />
 				))}
 			</div>
 		</div>

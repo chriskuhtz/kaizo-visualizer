@@ -38,7 +38,17 @@ export const PokeApiMovePill = ({
 	}, [move, name, overWrites, requestState]);
 
 	if (requestState === 'success' && move) {
-		return <MovePill name={move.name} maxPP={move.pp} type={move.type.name} />;
+		return (
+			<MovePill
+				name={move.name}
+				maxPP={move.pp}
+				type={move.type.name}
+				description={
+					move.flavor_text_entries.find((f) => f.language.name === 'en')
+						?.flavor_text
+				}
+			/>
+		);
 	}
 	return <RequestStateDisplay requestState={requestState} />;
 };

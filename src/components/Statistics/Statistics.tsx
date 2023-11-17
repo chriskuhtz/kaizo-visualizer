@@ -35,9 +35,8 @@ export const Statistics = ({
 				<h3>Runs that left the lab: {runsThatLeftTheLab.length}</h3>
 				<div className="iconGroup">
 					{runsThatLeftTheLab.map((r) => (
-						<span onClick={() => setSelected(r)}>
+						<span key={r.filename} onClick={() => setSelected(r)}>
 							<IconWithTag
-								key={r.filename}
 								src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${r.dexId}.png
         `}
 							/>
@@ -50,9 +49,8 @@ export const Statistics = ({
 				<h3>Runs that beat brock: {runsThatBeatBrock.length}</h3>
 				<div className="iconGroup">
 					{runsThatBeatBrock.map((r) => (
-						<span onClick={() => setSelected(r)}>
+						<span key={r.filename} onClick={() => setSelected(r)}>
 							<IconWithTag
-								key={r.filename}
 								src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${r.dexId}.png
         `}
 							/>
