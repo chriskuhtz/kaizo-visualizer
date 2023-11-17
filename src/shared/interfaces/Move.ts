@@ -9,7 +9,7 @@ export interface Move {
 export type MoveType = 'physical' | 'special' | 'status';
 
 export interface DamageClass {
-	name: string;
+	name: 'physical' | 'special' | 'status';
 	url: string;
 }
 export interface EffectEntry {

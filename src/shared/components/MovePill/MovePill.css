@@ -5,13 +5,17 @@
 	border: 1px solid;
 	border-radius: 9000px;
 	padding: 0 0.5rem;
-
-	> * {
-		justify-self: center;
-	}
 }
 
+.movePillCenter {
+	justify-self: start;
+}
+
+.movePillPP {
+	justify-self: center;
+}
 .movePillTypeIcon {
 	height: 2.5rem;
 	width: 2.5rem;
+	justify-self: center;
 }

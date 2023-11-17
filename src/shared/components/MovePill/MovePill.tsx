@@ -19,11 +19,11 @@ export const MovePill = ({
 				src={`./assets/typeIcons/${type}.png`}
 				className="movePillTypeIcon"
 			/>
-			<div>
+			<div className="movePillCenter">
 				<strong key={name}>{name}</strong>
 				<div>{description}</div>
 			</div>
-			<div>
+			<div className="movePillPP">
 				{availablePP && `${availablePP} / `} {maxPP}
 			</div>
 		</div>

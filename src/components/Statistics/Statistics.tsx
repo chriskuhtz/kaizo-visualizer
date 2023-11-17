@@ -37,6 +37,7 @@ export const Statistics = ({
 					{runsThatLeftTheLab.map((r) => (
 						<span key={r.filename} onClick={() => setSelected(r)}>
 							<IconWithTag
+								tag={r.level}
 								src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${r.dexId}.png
         `}
 							/>
@@ -51,6 +52,7 @@ export const Statistics = ({
 					{runsThatBeatBrock.map((r) => (
 						<span key={r.filename} onClick={() => setSelected(r)}>
 							<IconWithTag
+								tag={r.level}
 								src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${r.dexId}.png
         `}
 							/>
