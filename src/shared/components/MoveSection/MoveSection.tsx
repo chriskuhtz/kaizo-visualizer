@@ -1,4 +1,5 @@
 import { Move } from '../../interfaces/Move';
+import { PokeApiMovePill } from '../MovePill/PokeApiMovePill';
 import './MoveSection.css';
 
 export const MoveSection = ({ moves }: { moves: Move[] }): JSX.Element => {
@@ -7,7 +8,7 @@ export const MoveSection = ({ moves }: { moves: Move[] }): JSX.Element => {
 			<h2>Moves:</h2>
 			<div className="movesGrid">
 				{moves.map((m) => (
-					<h4 key={m.name}>{m.name}</h4>
+					<PokeApiMovePill name={m.name} />
 				))}
 			</div>
 		</div>
